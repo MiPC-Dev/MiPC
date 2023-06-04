@@ -1,0 +1,109 @@
+{
+    "ok": true,
+    "token": "xiyQ910XqTGEZsfinNhKZ82xT92TzX1A",
+    "user": {
+        "id": "9dd06by0t3",
+        "name": "sonyakun",
+        "username": "sonyakun",
+        "host": null,
+        "avatarUrl": "https://nos3.arkjp.net/avatar.webp?url=https%3A%2F%2Fs3.arkjp.net%2Fmisskey%2F713c3a8e-67c4-4ee1-91b3-35ef620501d2.png&avatar=1",
+        "avatarBlurhash": "ebGbu9-;_3t7%M~qRjofRjRjxuRjRPt7M|%Mj@IUofj[-;WCRjRjt7",
+        "isBot": false,
+        "isCat": true,
+        "emojis": {},
+        "onlineStatus": "online",
+        "badgeRoles": [],
+        "url": null,
+        "uri": null,
+        "movedTo": null,
+        "alsoKnownAs": null,
+        "createdAt": "2023-04-09T13:26:42.936Z",
+        "updatedAt": "2023-06-03T17:14:32.288Z",
+        "lastFetchedAt": null,
+        "bannerUrl": "https://s3.arkjp.net/misskey/1e5e44a7-33b8-4b44-b27d-78204acd2339.png",
+        "bannerBlurhash": "eBNm.*-;?b%M9FRjfQM{ayt7~qj[D%j[-;ofj[%gfQIUD%ayt7fQRj",
+        "isLocked": false,
+        "isSilenced": false,
+        "isSuspended": false,
+        "description": "Pythonプログラマー。\nQuakeWatch👀(@eewbot)&GoogleニュースBot(非公式) (@googlenews)開発者。\n#Python\n#地震bot\n#プログラマー",
+        "location": "日本、東京都",
+        "birthday": "0001-01-01",
+        "lang": "ja",
+        "fields": [
+            {
+                "name": "Github",
+                "value": "https://github.com/sonyakun"
+            },
+            {
+                "name": "QuakeWatch👀",
+                "value": "https://misskey.io/@eewbot"
+            },
+            {
+                "name": "多分Twitter",
+                "value": "https://twitter.com/sonyakun1"
+            }
+        ],
+        "followersCount": 12,
+        "followingCount": 15,
+        "notesCount": 129,
+        "pinnedNoteIds": [
+            "9fj9iefbrw"
+        ],
+        "pinnedNotes": [
+            {
+                "id": "9fj9iefbrw",
+                "createdAt": "2023-06-03T07:54:04.295Z",
+                "userId": "9dd06by0t3",
+                "user": {
+                    "id": "9dd06by0t3",
+                    "name": "sonyakun",
+                    "username": "sonyakun",
+                    "host": null,
+                    "avatarUrl": "https://nos3.arkjp.net/avatar.webp?url=https%3A%2F%2Fs3.arkjp.net%2Fmisskey%2F713c3a8e-67c4-4ee1-91b3-35ef620501d2.png&avatar=1",
+                    "avatarBlurhash": "ebGbu9-;_3t7%M~qRjofRjRjxuRjRPt7M|%Mj@IUofj[-;WCRjRjt7",
+                    "isBot": false,
+                    "isCat": true,
+                    "emojis": {},
+                    "onlineStatus": "online",
+                    "badgeRoles": []
+                },
+                "text": "@eewbotの作り方を備忘録程度に書いてみた。\nhttps://qiita.com/sonyakun/items/0aa69e8bfccb006e2825",
+                "cw": null,
+                "visibility": "public",
+                "localOnly": false,
+                "reactionAcceptance": null,
+                "renoteCount": 0,
+                "repliesCount": 0,
+                "reactions": {},
+                "reactionEmojis": {},
+                "fileIds": [],
+                "files": [],
+                "replyId": null,
+                "renoteId": null,
+                "mentions": [
+                    "9fa16cwf9r"
+                ]
+            }
+        ],
+        "pinnedPageId": null,
+        "pinnedPage": null,
+        "publicReactions": false,
+        "ffVisibility": "public",
+        "twoFactorEnabled": false,
+        "usePasswordLessLogin": false,
+        "securityKeys": false,
+        "roles": [
+            {
+                "id": "9ddb0r6efm",
+                "name": "1年生",
+                "color": null,
+                "iconUrl": null,
+                "description": "Misskey.ioを使い始めて0年経過",
+                "isModerator": false,
+                "isAdministrator": false,
+                "displayOrder": 0
+            }
+        ],
+        "memo": null
+    }
+}
