@@ -12,6 +12,8 @@ from typing import (
 )
 import zlib
 import warnings
+import json
+import sys
 
 import mimetypes
 import httpx
@@ -24,12 +26,15 @@ import orjson
 from MiPC.MiAuth import MiAuth
 from MiPC.exceptions import MisskeyMiAuthFailedException, MisskeyAPIException
 
+class user:
+    pass
+
 class Misskey:
     
-    def __init__(self, server, token, events={"on_note": "on_note"}):
+    def __init__(
+        self, server, token=None):
         self.__server = server
         self.__token = token
-        self.on_event = {}
 
     def __request_api(
         self,
@@ -51,6 +56,41 @@ class Misskey:
         else:
             return response.json()
 
+    async def meta(
+        self):
+        class metadata:
+            pass
+        print(self.__token)
+        params = {
+            "i" : self.__token,
+        }
+        headers = {
+            "Content-Type": "application/json",
+            "i" : self.__token
+        }
+        async with httpx.AsyncClient() as client:
+            r = await client.post(
+                url=f'https://{self.__server}/api/meta', 
+                json=params,
+                headers=headers
+            )
+            rj = r.json()
+            meta = metadata
+            try:
+                meta.maintainer = [rj["maintainerName"], rj["maintainerEmail"]]
+                meta.version = rj["version"]
+                meta.name = rj["name"]
+                meta.url = rj["uri"]
+                meta.description = rj["description"]
+                meta.lang = rj["langs"]
+                meta.tos = rj["tosUrl"]
+                meta.full = json.dumps(rj, ensure_ascii=False, indent=4)
+                return meta
+            except KeyError:
+                print(r.text)
+                print("-----------------")
+                print(r.json)
+
     async def upload(
         self,
         file
@@ -62,7 +102,7 @@ class Misskey:
             r = await client.post(
                 url=f'https://{self.__server}/api/drive/files/create', 
                 data=params,
-                files={'file' : file}
+                files={"file" : file}
             )
             return r
 
@@ -77,60 +117,108 @@ class Misskey:
             for coro in self.on_event[name]:
                 asyncio.create_task(coro(*args))
 
-    async def start(self, channel=["main", "homeTimeline", "localTimeline", "hybridTimeline", "globalTimeline"], reconnect=True):
-        while True:
-            try:
-                async for self.ws in websockets.connect(f'wss://{self.__server}/streaming?i={self.__token}'):
-                    self.open = True
-                    for i in range(len(channel)):
-                        print(f"connecting channel to: {channel[i]}")
-                        await self.ws.send(orjson.dumps({
-                            "type": "connect",
-                            "body": {
-                                "channel": channel[i],
-                                "id": channel[i]
-                            }
-                        }))
-                        print(f"connected channel: {channel[i]}")
-                    while True:
-                        data = orjson.loads(zlib.decompress(await self.ws.recv()))
-                        print("---------------------------")
-                        print(data)
-                        print("---------------------------")
-            except:
-                warnings.warn('Connection Error. Reconnecting...')
-                continue
-
-    async def close(self):
-        self.open=False
-        await self.ws.close()
-
-    async def recv(self):
-        try:
-            data = orjson.loads(zlib.decompress(await self.ws.recv()))
-            if data["type"] == "channel":
-                print(data)
+    async def send(self, text, visibility="public", visibleUserIds: list=None, replyid=None, fileid=None, channelId=None, localOnly=False):
+        url = f"https://{self.__server}/api/notes/create"
+        if replyid is not None:
+            if fileid is not None:
+                params = {
+                    "i" : self.__token,
+                    "replyId": replyid,
+                    "fileIds": fileid,
+                    "visibility": visibility,
+                    "visibleUserIds": visibleUserIds,
+                    "channelId": channelId,
+                    "localOnly": localOnly,
+                    "text": text
+                }
+                head = {
+                    "Content-Type": "application/json"
+                }
+                async with httpx.AsyncClient() as client:
+                    r = await client.post(
+                        url=url, 
+                        json=params,
+                        headers=head
+                    )
+                    return r.json()
             else:
-                print("---------------------------")
-                print(data)
-                print("---------------------------")
-        except exceptions.ConnectionClosed:
-            await self.on_close()
+                params = {
+                    "i" : self.__token,
+                    "replyId": replyid,
+                    "visibility": visibility,
+                    "visibleUserIds": visibleUserIds,
+                    "channelId": channelId,
+                    "localOnly": localOnly,
+                    "text": text
+                }
+                head = {
+                    "Content-Type": "application/json"
+                }
+                async with httpx.AsyncClient() as client:
+                    r = await client.post(
+                        url=url, 
+                        json=params,
+                        headers=head
+                    )
+                    return r.json()
         else:
-            if data["type"] == "channel":
-                print(data)
+            params = {
+                "i" : self.__token,
+                "text": text
+            }
+            head = {
+                "Content-Type": "application/json"
+            }
+            async with httpx.AsyncClient() as client:
+                r = await client.post(
+                    url=url, 
+                    json=params,
+                    headers=head
+                )
+                return r.json()
 
-        def on(self, name: str):
-            def deco(coro):
-                if name in self.on_event:
-                    self.on_event[name].append(coro)
-                else:
-                    self.on_event[name] = [coro]
-                return coro
-            return deco
+    async def renote(self, rid: str, quote: str=None, visibility="public", visibleUserIds: list=None, channelId=None, localOnly=False):
+        url = f"https://{self.__server}/api/notes/create"
+        if quote is None:
+            params = {
+                "i" : self.__token,
+                "renoteId": rid,
+                "localOnly": localOnly,
+                "channelId": channelId,
+            }
+            head = {
+                "Content-Type": "application/json"
+            }
+            async with httpx.AsyncClient() as client:
+                r = await client.post(
+                    url=url, 
+                    json=params,
+                    headers=head
+                )
+                return r.json()
+        else:
+            params = {
+                "i" : self.__token,
+                "renoteId": rid,
+                "visibility": visibility,
+                "visibleUserIds": visibleUserIds,
+                "localOnly": localOnly,
+                "channelId": channelId,
+                "text": quote
+            }
+            head = {
+                "Content-Type": "application/json"
+            }
+            async with httpx.AsyncClient() as client:
+                r = await client.post(
+                    url=url, 
+                    json=params,
+                    headers=head
+                )
+                return r.json()
 
 async def test():
-    mia = MiAuth(server="misskey.io", name="TestApp")
+    mia = MiAuth(server="misskey.io", name="MiPC-Dev0.1")
     print(mia.generate_url())
     while True:
         try:
@@ -140,6 +228,32 @@ async def test():
             await asyncio.sleep(0.5)
             pass
     api = Misskey(server="misskey.io", token=auth_token)
-    await api.start()
+    await asyncio.sleep(2)
+    r = await api.meta()
+    try:
+        print("----------------------------")
+        print(r.name)
+        print(r.description)
+        print(r.url)
+        print("----------------------------")
+    except AttributeError:
+        r = await api.meta()
+        print("----------------------------")
+        print(r.name)
+        print(r.description)
+        print(r.url)
+        print("----------------------------")
+    a = await api.send("test")
+    print(a)
+    await asyncio.sleep(1.5)
+    b = await api.renote("9fmea4z1dn")
+    print(b)
+    await asyncio.sleep(1.5)
+    c = await api.renote("9fmea4z1dn", "Quote Test")
+    print(c)
+    await asyncio.sleep(1.5)
+    d = await api.send("Reply Test", "9fmea4z1dn")
+    print(d)
+    sys.exit()
 
 asyncio.run(test())
