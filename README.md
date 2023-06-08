@@ -1,4 +1,6 @@
 # MiPC
+![img](assets/icon.png)
+
 MiPC (Misskey Python Client) is a Python client for using MisskeyAPI.
 
 # Examples
@@ -29,3 +31,6 @@ while True:
 
 ```
 
+# question
+## Q. Why is the pypi registered under a different name(misskey-python) than MiPC?
+A. Because the registration was denied due to the name being similar to an existing pypi project.
