@@ -16,6 +16,7 @@ pytest = "^7.3.1"
 websockets = "^11.0.3"
 aiofiles = "^23.1.0"
 colorama = "^0.4.6"
+pytest-cov = "^4.1.0"
 
 
 [build-system]
