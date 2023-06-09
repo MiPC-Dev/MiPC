@@ -43,7 +43,7 @@ jobs:
         run: poetry install --no-interaction
       # pytest を実行する
       - name: Run Tests
-        run: poetry run pytest -p pytest_cov MiPC --cov=./MiPC --cov-report=xml
+        run: poetry run pytest -p pytest_cov ./MiPC/MiPC --cov=./MiPC/MiPC --cov-report=xml
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
