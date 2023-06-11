@@ -1,5 +1,4 @@
 # MiPC
-[![.github/workflows/test.yml](https://github.com/sonyakun/MiPC/actions/workflows/test.yml/badge.svg)](https://github.com/sonyakun/MiPC/actions/workflows/test.yml)
 
 ![img](assets/icon.png)
 
