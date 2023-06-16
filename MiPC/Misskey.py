@@ -100,6 +100,13 @@ class Misskey:
             "fileId": file_id
         })
 
+    async def update(
+        self, 
+        dct: dict
+    ):
+        dct["i"] = self.__token
+        return self.http.request('i/update', data=dct)
+
     async def send(self, text, visibility="public", visibleUserIds: list=None, replyid=None, fileid=None, channelId=None, localOnly=False):
         url = f"{self.__server}/api/notes/create"
         if replyid is not None:
