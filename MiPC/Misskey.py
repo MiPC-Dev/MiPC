@@ -255,7 +255,7 @@ class StreamingClient():
 
     def run(self):
         async def runner(self):
-            self.__ws = await websockets.connect(f'wss://{self.__server}/streaming?i={self.__token}')
+            self.__ws = await websockets.connect(f{self.__server}/streaming?i={self.__token}')
             try:
                 await self.on_ready()
             except AttributeError:
