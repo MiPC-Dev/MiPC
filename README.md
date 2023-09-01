@@ -1,37 +1,3 @@
-# MiPC
+# This project has been discontinued; equivalent functionality is available at [sonyakun/misspy](https://github.com/sonyakun/misspy).
 
-![img](assets/icon.png)
-
-MiPC (Misskey Python Client) is a Python client for using MisskeyAPI.
-
-# Examples
-
-##  MiAuth
-
-```python
-
-from MiPC.MiAuth import MiAuth
-
-mia = MiAuth(server="misskey.io", name="TestApp")
-
-url = mia.generate_url()
-
-while True:
-
-   try:
-
-     auth_token = mia.get_token()
-
-     break
-
-   except MisskeyMiAuthFailedException:
-
-     await asyncio.sleep(0.5)
-
-     pass
-
-```
-
-# question
-## Q. Why is the pypi registered under a different name(misskey-python) than MiPC?
-A. Because the registration was denied due to the name being similar to an existing pypi project.
+**If you want to continue to use [MiPC](https://github.com/MiPC-Dev/MiPC/tree/develop), you can proceed to the develop branch.**
