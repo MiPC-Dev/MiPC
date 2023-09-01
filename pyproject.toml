@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "misskey-python"
-version = "1.1"
+version = "1.3-deprecated"
 description = "MiPC is the Misskey API framework for Python."
 authors = ["sonyakun"]
 license = "MIT"
