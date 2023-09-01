@@ -1,3 +1,6 @@
+# This project has been discontinued; equivalent functionality is available at [sonyakun/misspy](https://github.com/sonyakun/misspy).
+
+**When installing, keep in mind that support is not provided by this library.**
 # MiPC
 
 ![img](assets/icon.png)
