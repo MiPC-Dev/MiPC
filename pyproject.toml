@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "misskey-python"
-version = "1.2.1"
-description = "This project has been discontinued; equivalent functionality is available at sonyakun/misspy."
+version = "1.0.1"
+description = "misskey api library"
 authors = ["sonyakun"]
 license = "MIT"
 readme = "README.md"
