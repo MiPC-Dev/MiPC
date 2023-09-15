@@ -1,4 +1,4 @@
-# This project has been discontinued; equivalent functionality is available at [sonyakun/misspy](https://github.com/sonyakun/misspy).
+# This project has been discontinued.
 
 **When installing, keep in mind that support is not provided by this library.**
 # MiPC
